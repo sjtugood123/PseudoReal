@@ -33,6 +33,9 @@ cd ../..
 Required for running `real` kernel mode for performance benchmarking.
 
 ```bash
+git clone -b a100 https://github.com/sjtugood123/PseudoReal.git PseudoReal
+cd PseudoReal
+
 conda create -n PseudoReal python=3.12 -y
 conda activate PseudoReal
 
@@ -43,11 +46,12 @@ export CUTLASS_DIR=~/cutlass
 pip install -r requirements.txt
 
 # 3) Build/install fouroversix with kernels
-cd fouroversix
-export CUDA_ARCHS=80 # Adjust for your GPU (e.g., 80 for A100, 90 for H100)#这里有点问题，去看了4over6的源码里面就不支持80和90啊，为什么这么写?ai写的吗?
-export FORCE_BUILD=1
-pip install --no-build-isolation -e .
-cd ..
+#cd fouroversix
+#这里有点问题，去看了4over6的源码里面就不支持80和90啊，为什么这么写?编译不可能成功啊
+#export CUDA_ARCHS=80 # Adjust for your GPU (e.g., 80 for A100, 90 for H100)
+#export FORCE_BUILD=1
+#pip install --no-build-isolation -e .
+#cd ..
 
 # 4) Build ARCQuant kernels
 cd ARCQuant/kernels
@@ -91,7 +95,21 @@ python FP-Quant/model_quant.py \
 ### Evaluation / Comparison (Example)
 
 ```bash
-# FP-Quant backend: real vs pseudo
+
+#emu_sys pseudo path needs expecttest
+pip install expecttest
+
+cd ~/PseudoReal
+git clone https://github.com/huweim/emulation_sys.git
+cd emulation_sys/inference/quant
+rmdir nvfp_kernel
+git clone https://github.com/huweim/nvfp_kernel.git
+cd nvfp_kernel
+python setup.py install > try_compile1.txt 2>&1
+
+python non_reasoning.py --backend emulation_sys   --model /state/partition/model/meta-llama_Meta-Llama-3-8B   --kernel-1 pseudo
+
+# FP-Quant backend: real vs pseudo结果很奇怪
 python non_reasoning.py \
   --backend fp_quant \
   --model /state/partition/model/meta-llama_Meta-Llama-3-8B \
@@ -112,7 +130,6 @@ python non_reasoning.py \
   --model /state/partition/model/meta-llama_Meta-Llama-3-8B \
   --kernel-1 pseudo
 
-#emu needs expecttest
 ```
 
 ## Results
