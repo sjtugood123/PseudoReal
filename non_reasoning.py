@@ -7,7 +7,7 @@ import argparse
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch.nn as nn
 
-from fouroversix import apply_ptq, QuantizeBackend
+# from fouroversix import apply_ptq, QuantizeBackend
 
 import os
 import sys
@@ -303,6 +303,53 @@ def _apply_arcquant(
     )
 
 
+def _apply_emulation_sys(
+    model: nn.Module,
+    *,
+    kernel_mode: str,
+    w_bit: int = 4,
+    a_bit: int = 4,
+    q_group_size: int = 16,
+    use_zero_point: bool = False,
+    nvfp: bool = True,
+    fp8: bool = False,
+):
+    kernel_mode = kernel_mode.strip().lower()
+    if kernel_mode in {"pseudo", "ref", "reference"}:
+        mode = "pseudo"
+    elif kernel_mode in {"real", "kernel", "kernels"}:
+        mode = "real"
+    elif kernel_mode in {"emulation", "emu", "sim", "simulator"}:
+        mode = "emulation"
+    else:
+        raise ValueError(
+            f"Invalid kernel_mode for emulation_sys: {kernel_mode}. Expected 'pseudo', 'real', or 'emulation'."
+        )
+
+    emu_root = os.path.join(os.path.dirname(__file__), "emulation_sys")
+    if emu_root not in sys.path:
+        sys.path.append(emu_root)
+
+    from inference.quant.pre_quant import replace_quant_linear  # type: ignore
+
+    q_config = {
+        "q_group_size": q_group_size,
+        "mode": mode,
+    }
+
+    replace_quant_linear(
+        model=model,
+        w_bit=w_bit,
+        a_bit=a_bit,
+        q_config=q_config,
+        use_zero_point=use_zero_point,
+        init_only=False,
+        nvfp=nvfp,
+        fp8=fp8,
+    )
+    model.eval()
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -318,8 +365,8 @@ def main():
         "--backend",
         type=str,
         default="4o6",
-        choices=["4o6", "fp_quant", "arcquant"],
-        help="Which quantization/eval backend to compare: 4o6 (fouroversix PTQ), fp_quant (exported FP-Quant model), or arcquant (ARCQuant/AGEMM).",
+        choices=["4o6", "fp_quant", "arcquant", "emulation_sys"],
+        help="Which quantization/eval backend to compare: 4o6 (fouroversix PTQ), fp_quant (exported FP-Quant model), arcquant (ARCQuant/AGEMM), or emulation_sys (QuantLinear from emulation_sys).",
     )
 
     # Run-1 / Run-2 kernel selection
@@ -327,15 +374,15 @@ def main():
     # - For backend=fp_quant: controls FPQuantLinear pseudoquantization flag (real/pseudo)
     parser.add_argument(
         "--kernel-1",
-        default="real",
+        default="pseudo",
         type=str,
-        help="Kernel mode for run 1: real or pseudo.",
+        help="Kernel mode for run 1: real, pseudo, or emulation (emulation_sys only).",
     )
     parser.add_argument(
         "--kernel-2",
-        default="pseudo",
+        default="none",
         type=str,
-        help="Kernel mode for run 2: real or pseudo.",
+        help="Kernel mode for run 2: real, pseudo, or emulation (emulation_sys only).",
     )
 
     args = parser.parse_args()
@@ -349,17 +396,17 @@ def main():
 
     tokenizer = AutoTokenizer.from_pretrained(args.model, use_fast=True)
 
-    def _parse_backend(val: str | None) -> QuantizeBackend | None:
-        if val is None:
-            return None
-        v = val.strip().lower()
-        if v in {"auto", "none"}:
-            return None
-        if v in {"real", "kernel", "kernels"}:
-            return QuantizeBackend.triton
-        if v in {"pseudo", "ref", "reference"}:
-            return QuantizeBackend.pytorch
-        return QuantizeBackend(v)
+    # def _parse_backend(val: str | None) -> QuantizeBackend | None:
+    #     if val is None:
+    #         return None
+    #     v = val.strip().lower()
+    #     if v in {"auto", "none"}:
+    #         return None
+    #     if v in {"real", "kernel", "kernels"}:
+    #         return QuantizeBackend.triton
+    #     if v in {"pseudo", "ref", "reference"}:
+    #         return QuantizeBackend.pytorch
+    #     return QuantizeBackend(v)
 
     def _parse_kernel_mode(val: str | None) -> str | None:
         if val is None or val.lower() == "none":
@@ -369,7 +416,9 @@ def main():
             return "real"
         if v in {"pseudo", "ref", "reference"}:
             return "pseudo"
-        raise ValueError(f"Invalid kernel mode: {val}. Expected 'real', 'pseudo' or 'none'.")
+        if v in {"emulation", "emu", "sim", "simulator"}:
+            return "emulation"
+        raise ValueError(f"Invalid kernel mode: {val}. Expected 'real', 'pseudo', 'emulation' or 'none'.")
 
     kernel1 = _parse_kernel_mode(args.kernel_1)
     kernel2 = _parse_kernel_mode(args.kernel_2)
@@ -378,8 +427,8 @@ def main():
         raise ValueError("kernel-1 cannot be None. At least one kernel must be specified.")
 
     # Only used when backend=4o6
-    backend1 = _parse_backend(kernel1)
-    backend2 = _parse_backend(kernel2)
+    # backend1 = _parse_backend(kernel1)
+    # backend2 = _parse_backend(kernel2)
 
     print("Run 1: loading model...")
     ignore_fp_quant_in_config = args.backend == "fp_quant"
@@ -407,6 +456,15 @@ def main():
     elif args.backend == "arcquant":
         print(f"Run 1: enable ARCQuant (kernel_mode={kernel1}) ...")
         _apply_arcquant(model1, model_path=args.model, kernel_mode=kernel1)
+    elif args.backend == "emulation_sys":
+        print(f"Run 1: enable emulation_sys quantization (kernel_mode={kernel1}) ...")
+        _apply_emulation_sys(
+            model1,
+            kernel_mode=kernel1,
+            w_bit=4,
+            a_bit=4,
+            nvfp=True,
+        )
     else:
         raise ValueError(f"Unknown backend: {args.backend}")
 
@@ -447,6 +505,15 @@ def main():
     elif args.backend == "arcquant":
         print(f"Run 2: enable ARCQuant (kernel_mode={kernel2}) ...")
         _apply_arcquant(model2, model_path=args.model, kernel_mode=kernel2)
+    elif args.backend == "emulation_sys":
+        print(f"Run 2: enable emulation_sys quantization (kernel_mode={kernel2}) ...")
+        _apply_emulation_sys(
+            model2,
+            kernel_mode=kernel2,
+            w_bit=4,
+            a_bit=4,
+            nvfp=True,
+        )
     else:
         raise ValueError(f"Unknown backend: {args.backend}")
 
