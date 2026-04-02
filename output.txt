@@ -1,0 +1,101 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Run 1: loading model...
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.62s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:02<00:00,  1.01s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:02<00:00,  1.10s/it]
+Run 1: enable emulation_sys quantization (kernel_mode=pseudo) ...
+replace quant linear...(init_only=False):   0%|          | 0/32 [00:00<?, ?it/s]replace quant linear...(init_only=False):   3%|▎         | 1/32 [00:00<00:04,  7.12it/s]replace quant linear...(init_only=False):  12%|█▎        | 4/32 [00:00<00:01, 17.65it/s]replace quant linear...(init_only=False):  22%|██▏       | 7/32 [00:00<00:01, 22.34it/s]replace quant linear...(init_only=False):  34%|███▍      | 11/32 [00:00<00:00, 27.78it/s]replace quant linear...(init_only=False):  44%|████▍     | 14/32 [00:00<00:00, 26.45it/s]replace quant linear...(init_only=False):  56%|█████▋    | 18/32 [00:00<00:00, 29.73it/s]replace quant linear...(init_only=False):  69%|██████▉   | 22/32 [00:00<00:00, 28.10it/s]replace quant linear...(init_only=False):  81%|████████▏ | 26/32 [00:00<00:00, 30.52it/s]replace quant linear...(init_only=False):  94%|█████████▍| 30/32 [00:01<00:00, 30.37it/s]replace quant linear...(init_only=False): 100%|██████████| 32/32 [00:01<00:00, 27.52it/s]
+`pretrained` model kwarg is not of type `str`. Many other model arguments may be ignored. Please do not launch via accelerate or use `parallelize=True` if passing an existing model this way.
+Passed an already-initialized model through `pretrained`, assuming single-process call to evaluate() or custom distributed integration
+[Task: boolq] metric acc is defined, but aggregation is not. using default aggregation=mean
+[Task: boolq] metric acc is defined, but higher_is_better is not. using default higher_is_better=True
+Overwriting default num_fewshot of boolq from None to 0
+Overwriting default num_fewshot of hellaswag from None to 0
+Overwriting default num_fewshot of arc_challenge from None to 0
+Overwriting default num_fewshot of arc_easy from None to 0
+Run 1: evaluating...
+  0%|          | 0/3270 [00:00<?, ?it/s] 17%|█▋        | 548/3270 [00:00<00:00, 5471.03it/s] 34%|███▎      | 1096/3270 [00:00<00:00, 5468.90it/s] 50%|█████     | 1649/3270 [00:00<00:00, 5494.81it/s] 67%|██████▋   | 2201/3270 [00:00<00:00, 5500.65it/s] 84%|████████▍ | 2752/3270 [00:00<00:00, 5491.49it/s]100%|██████████| 3270/3270 [00:00<00:00, 5493.46it/s]
+  0%|          | 0/10042 [00:00<?, ?it/s]  8%|▊         | 759/10042 [00:00<00:01, 7582.00it/s] 15%|█▌        | 1529/10042 [00:00<00:01, 7647.61it/s] 23%|██▎       | 2294/10042 [00:00<00:01, 7206.08it/s] 30%|███       | 3055/10042 [00:00<00:00, 7358.43it/s] 38%|███▊      | 3815/10042 [00:00<00:00, 7442.68it/s] 46%|████▌     | 4578/10042 [00:00<00:00, 7505.01it/s] 53%|█████▎    | 5342/10042 [00:00<00:00, 7547.19it/s] 61%|██████    | 6098/10042 [00:00<00:00, 5073.16it/s] 68%|██████▊   | 6852/10042 [00:01<00:00, 5646.15it/s] 76%|███████▌  | 7611/10042 [00:01<00:00, 6130.68it/s] 83%|████████▎ | 8369/10042 [00:01<00:00, 6511.35it/s] 91%|█████████ | 9129/10042 [00:01<00:00, 6806.79it/s] 98%|█████████▊| 9891/10042 [00:01<00:00, 7034.23it/s]100%|██████████| 10042/10042 [00:01<00:00, 6746.49it/s]
+  0%|          | 0/1172 [00:00<?, ?it/s] 27%|██▋       | 313/1172 [00:00<00:00, 3124.09it/s] 53%|█████▎    | 626/1172 [00:00<00:00, 3117.08it/s] 80%|████████  | 940/1172 [00:00<00:00, 3127.27it/s]100%|██████████| 1172/1172 [00:00<00:00, 3127.92it/s]
+  0%|          | 0/2376 [00:00<?, ?it/s] 13%|█▎        | 312/2376 [00:00<00:00, 3118.01it/s] 26%|██▋       | 624/2376 [00:00<00:00, 3104.86it/s] 40%|███▉      | 939/2376 [00:00<00:00, 3122.71it/s] 53%|█████▎    | 1254/2376 [00:00<00:00, 3130.31it/s] 66%|██████▌   | 1568/2376 [00:00<00:00, 3126.42it/s] 79%|███████▉  | 1881/2376 [00:00<00:00, 3119.69it/s] 92%|█████████▏| 2195/2376 [00:00<00:00, 3124.29it/s]100%|██████████| 2376/2376 [00:00<00:00, 3122.46it/s]
+Running loglikelihood requests:   0%|          | 0/60896 [00:00<?, ?it/s]Running loglikelihood requests:   0%|          | 1/60896 [00:21<369:26:01, 21.84s/it]Running loglikelihood requests:   0%|          | 5/60896 [00:33<98:37:13,  5.83s/it] Running loglikelihood requests:   0%|          | 9/60896 [00:45<71:16:44,  4.21s/it]Running loglikelihood requests:   0%|          | 13/60896 [00:56<60:07:29,  3.56s/it]Running loglikelihood requests:   0%|          | 17/60896 [01:06<52:46:20,  3.12s/it]Running loglikelihood requests:   0%|          | 21/60896 [01:15<47:45:41,  2.82s/it]Running loglikelihood requests:   0%|          | 25/60896 [01:24<44:22:33,  2.62s/it]Running loglikelihood requests:   0%|          | 29/60896 [01:32<41:35:04,  2.46s/it]Running loglikelihood requests:   0%|          | 33/60896 [01:40<39:37:30,  2.34s/it]Running loglikelihood requests:   0%|          | 37/60896 [01:49<38:09:38,  2.26s/it]Running loglikelihood requests:   0%|          | 41/60896 [01:57<37:09:45,  2.20s/it]Running loglikelihood requests:   0%|          | 45/60896 [02:05<35:52:58,  2.12s/it]Running loglikelihood requests:   0%|          | 49/60896 [02:13<34:51:12,  2.06s/it]Running loglikelihood requests:   0%|          | 53/60896 [02:20<34:08:14,  2.02s/it]Running loglikelihood requests:   0%|          | 57/60896 [02:27<33:03:41,  1.96s/it]Running loglikelihood requests:   0%|          | 61/60896 [02:35<32:18:32,  1.91s/it]Running loglikelihood requests:   0%|          | 65/60896 [02:42<31:38:16,  1.87s/it]Running loglikelihood requests:   0%|          | 69/60896 [02:49<31:10:01,  1.84s/it]Running loglikelihood requests:   0%|          | 73/60896 [02:56<30:50:10,  1.83s/it]Running loglikelihood requests:   0%|          | 77/60896 [03:03<30:28:02,  1.80s/it]Running loglikelihood requests:   0%|          | 81/60896 [03:10<30:12:26,  1.79s/it]Running loglikelihood requests:   0%|          | 85/60896 [03:17<30:01:25,  1.78s/it]Running loglikelihood requests:   0%|          | 89/60896 [03:24<29:18:49,  1.74s/it]Running loglikelihood requests:   0%|          | 93/60896 [03:30<28:48:54,  1.71s/it]Running loglikelihood requests:   0%|          | 97/60896 [03:37<28:19:34,  1.68s/it]Running loglikelihood requests:   0%|          | 101/60896 [03:43<27:58:55,  1.66s/it]Running loglikelihood requests:   0%|          | 105/60896 [03:49<27:44:27,  1.64s/it]Running loglikelihood requests:   0%|          | 109/60896 [03:56<27:34:13,  1.63s/it]Running loglikelihood requests:   0%|          | 113/60896 [04:02<27:18:47,  1.62s/it]Running loglikelihood requests:   0%|          | 117/60896 [04:09<27:07:53,  1.61s/it]Running loglikelihood requests:   0%|          | 121/60896 [04:15<27:00:13,  1.60s/it]Running loglikelihood requests:   0%|          | 125/60896 [04:21<26:54:45,  1.59s/it]Running loglikelihood requests:   0%|          | 129/60896 [04:28<26:50:56,  1.59s/it]Running loglikelihood requests:   0%|          | 133/60896 [04:34<26:48:07,  1.59s/it]Running loglikelihood requests:   0%|          | 137/60896 [04:40<26:11:10,  1.55s/it]Running loglikelihood requests:   0%|          | 141/60896 [04:46<25:45:17,  1.53s/it]Running loglikelihood requests:   0%|          | 145/60896 [04:51<25:27:09,  1.51s/it]Running loglikelihood requests:   0%|          | 149/60896 [04:57<25:14:23,  1.50s/it]Running loglikelihood requests:   0%|          | 153/60896 [05:03<25:05:22,  1.49s/it]Running loglikelihood requests:   0%|          | 157/60896 [05:09<24:59:00,  1.48s/it]Running loglikelihood requests:   0%|          | 161/60896 [05:15<24:54:30,  1.48s/it]Running loglikelihood requests:   0%|          | 165/60896 [05:21<24:51:17,  1.47s/it]Running loglikelihood requests:   0%|          | 169/60896 [05:27<24:49:00,  1.47s/it]Running loglikelihood requests:   0%|          | 173/60896 [05:33<24:47:22,  1.47s/it]Running loglikelihood requests:   0%|          | 177/60896 [05:38<24:46:11,  1.47s/it]Running loglikelihood requests:   0%|          | 181/60896 [05:44<24:37:10,  1.46s/it]Running loglikelihood requests:   0%|          | 185/60896 [05:50<24:30:51,  1.45s/it]Running loglikelihood requests:   0%|          | 189/60896 [05:56<24:26:23,  1.45s/it]Running loglikelihood requests:   0%|          | 193/60896 [06:01<24:23:12,  1.45s/it]Running loglikelihood requests:   0%|          | 197/60896 [06:07<24:20:55,  1.44s/it]Running loglikelihood requests:   0%|          | 201/60896 [06:13<24:19:17,  1.44s/it]Running loglikelihood requests:   0%|          | 205/60896 [06:19<24:18:05,  1.44s/it]Running loglikelihood requests:   0%|          | 209/60896 [06:24<24:17:12,  1.44s/it]Running loglikelihood requests:   0%|          | 213/60896 [06:30<24:16:34,  1.44s/it]Running loglikelihood requests:   0%|          | 217/60896 [06:36<24:16:06,  1.44s/it]Running loglikelihood requests:   0%|          | 221/60896 [06:42<24:15:45,  1.44s/it]Running loglikelihood requests:   0%|          | 225/60896 [06:47<24:15:22,  1.44s/it]Running loglikelihood requests:   0%|          | 229/60896 [06:53<24:15:06,  1.44s/it]Running loglikelihood requests:   0%|          | 233/60896 [06:59<24:14:51,  1.44s/it]Running loglikelihood requests:   0%|          | 237/60896 [07:05<24:14:38,  1.44s/it]Running loglikelihood requests:   0%|          | 241/60896 [07:10<24:14:27,  1.44s/it]Running loglikelihood requests:   0%|          | 245/60896 [07:16<23:39:40,  1.40s/it]Running loglikelihood requests:   0%|          | 249/60896 [07:21<23:15:16,  1.38s/it]Running loglikelihood requests:   0%|          | 253/60896 [07:26<22:58:13,  1.36s/it]Running loglikelihood requests:   0%|          | 257/60896 [07:32<22:46:12,  1.35s/it]Running loglikelihood requests:   0%|          | 261/60896 [07:37<22:37:48,  1.34s/it]Running loglikelihood requests:   0%|          | 265/60896 [07:42<22:31:51,  1.34s/it]Running loglikelihood requests:   0%|          | 269/60896 [07:48<22:27:40,  1.33s/it]Running loglikelihood requests:   0%|          | 273/60896 [07:53<22:24:40,  1.33s/it]Running loglikelihood requests:   0%|          | 277/60896 [07:58<22:22:32,  1.33s/it]Running loglikelihood requests:   0%|          | 281/60896 [08:03<22:21:03,  1.33s/it]Running loglikelihood requests:   0%|          | 285/60896 [08:09<22:19:55,  1.33s/it]Running loglikelihood requests:   0%|          | 289/60896 [08:14<22:19:06,  1.33s/it]Running loglikelihood requests:   0%|          | 293/60896 [08:19<22:18:28,  1.33s/it]Running loglikelihood requests:   0%|          | 297/60896 [08:25<22:18:00,  1.32s/it]Running loglikelihood requests:   0%|          | 301/60896 [08:30<22:17:37,  1.32s/it]Running loglikelihood requests:   1%|          | 305/60896 [08:35<22:17:19,  1.32s/it]Running loglikelihood requests:   1%|          | 309/60896 [08:41<22:17:06,  1.32s/it]Running loglikelihood requests:   1%|          | 313/60896 [08:46<22:16:57,  1.32s/it]Running loglikelihood requests:   1%|          | 317/60896 [08:51<22:08:27,  1.32s/it]Running loglikelihood requests:   1%|          | 321/60896 [08:56<22:02:28,  1.31s/it]Running loglikelihood requests:   1%|          | 325/60896 [09:01<21:58:16,  1.31s/it]Running loglikelihood requests:   1%|          | 329/60896 [09:07<21:55:17,  1.30s/it]Running loglikelihood requests:   1%|          | 333/60896 [09:12<21:53:08,  1.30s/it]Running loglikelihood requests:   1%|          | 337/60896 [09:17<21:51:33,  1.30s/it]Traceback (most recent call last):
+  File "/home/xtzhao/PseudoReal/non_reasoning.py", line 528, in <module>
+    main()
+  File "/home/xtzhao/PseudoReal/non_reasoning.py", line 474, in main
+    results1 = _evaluate(model1, tokenizer, batch_size=args.batch_size)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/PseudoReal/non_reasoning.py", line 65, in _evaluate
+    results = lm_eval.simple_evaluate(
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/lm_eval/utils.py", line 458, in _wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/lm_eval/evaluator.py", line 357, in simple_evaluate
+    results = evaluate(
+              ^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/lm_eval/utils.py", line 458, in _wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/lm_eval/evaluator.py", line 585, in evaluate
+    resps = getattr(lm, reqtype)(cloned_reqs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/lm_eval/api/model.py", line 453, in loglikelihood
+    return self._loglikelihood_tokens(new_reqs, disable_tqdm=disable_tqdm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/lm_eval/models/huggingface.py", line 1296, in _loglikelihood_tokens
+    self._model_call(batched_inps, **call_kwargs),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/lm_eval/models/huggingface.py", line 965, in _model_call
+    return self.model(inps).logits
+           ^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1786, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/transformers/utils/generic.py", line 918, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/transformers/models/llama/modeling_llama.py", line 459, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+                                       ^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1786, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/transformers/utils/generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/transformers/models/llama/modeling_llama.py", line 395, in forward
+    hidden_states = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1786, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/transformers/models/llama/modeling_llama.py", line 309, in forward
+    hidden_states = self.mlp(hidden_states)
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1786, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/transformers/models/llama/modeling_llama.py", line 155, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xtzhao/miniconda3/envs/PseudoReal/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1771, in _wrapped_call_impl
+    def _wrapped_call_impl(self, *args, **kwargs):
+
+KeyboardInterrupt
+Running loglikelihood requests:   1%|          | 340/60896 [09:20<27:42:41,  1.65s/it]

@@ -1,0 +1,16 @@
+cmake-build-*
+.DS_Store
+build
+dist
+*.egg-info
+*.pyc
+
+.venv/*
+CMakeFiles/*
+ctest/*
+*.so
+third_party/*
+bench_*/*
+.torch_inductor_cache
+benchmarks_output/*
+results/*

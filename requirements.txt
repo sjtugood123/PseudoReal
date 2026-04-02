@@ -2,3 +2,8 @@ torch==2.9.1
 transformers==4.57.6
 lm-eval[hf]==0.4.9.2
 matplotlib==3.10.8
+# the following is for qutlass
+cmake
+pytest
+# for emu_sys
+expecttest
